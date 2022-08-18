@@ -29,7 +29,7 @@ setup(
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     test_suite="tests",
-    install_requires=["<keyboard>", "<pywin32>"],
+    install_requires=["keyboard", "pywin32"],
     keywords="",
     classifiers=[
         "License :: OSI Approved :: MIT License",
