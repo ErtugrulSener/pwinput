@@ -29,7 +29,7 @@ setup(
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     test_suite="tests",
-    install_requires=[],
+    install_requires=["<keyboard>", "<win32api>", "<win32con>"],
     keywords="",
     classifiers=[
         "License :: OSI Approved :: MIT License",
