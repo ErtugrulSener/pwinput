@@ -7,6 +7,9 @@ __version__ = '1.0.2'  # type: str
 
 import sys
 
+import keyboard
+from win32api import GetKeyState
+from win32con import VK_CAPITAL
 
 """Notes about making this code backwards-compatible with Python 2:
 sys.stdout.write() can only write unicode strings, not Python 2 str strings.
@@ -70,13 +73,17 @@ def pwinput(prompt='Password: ', mask='*'):
     enteredPassword = [] # type: List[str]
     sys.stdout.write(prompt)
     sys.stdout.flush()
+
     while True:
         key = ord(getch())
-        if key == 13: # Enter key pressed.
+        keyboard_key = keyboard.read_key()
+
+        if keyboard_key == "enter": # Enter key pressed.
             if RUNNING_PYTHON_2:
                 sys.stdout.write(STR_TYPE('\n'))
             else:
                 sys.stdout.write('\n')
+
             return ''.join(enteredPassword)
         elif key in (8, 127): # Backspace/Del key erases previous output.
             if len(enteredPassword) > 0:
@@ -91,9 +98,17 @@ def pwinput(prompt='Password: ', mask='*'):
             # Do nothing for unprintable characters.
             # TODO: Handle Esc, F1-F12, arrow keys, home, end, insert, del, pgup, pgdn
             pass
+        elif keyboard_key in ['clear', 'down', 'end', 'home', 'insert', 'left', 'page down', 'page up', 'right', 'up'] \
+            and not GetKeyState(VK_CAPITAL):
+            pass
         else:
             # Key is part of the password; display the mask character.
             char = chr(key)
             sys.stdout.write(mask)
             sys.stdout.flush()
             enteredPassword.append(char)
+
+
+if __name__ == "__main__":
+    var = pwinput(prompt="Password: ", mask="*")
+    print(f"=> {var}")
