@@ -81,8 +81,8 @@ def pwinput(prompt='Password: ', mask='*'):
     sys.stdout.flush()
 
     while True:
-        key = ord(getch())
         keyboard_key = keyboard.read_key()
+        key = ord(getch())
 
         if keyboard_key == "enter":  # Enter key pressed.
             if RUNNING_PYTHON_2:
