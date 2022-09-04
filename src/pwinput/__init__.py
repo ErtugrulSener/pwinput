@@ -84,7 +84,7 @@ def pwinput(prompt='Password: ', mask='*'):
         keyboard_key = keyboard.read_key()
         key = ord(getch())
 
-        if keyboard_key == "enter":  # Enter key pressed.
+        if key == 13: # Enter key pressed.
             if RUNNING_PYTHON_2:
                 sys.stdout.write(STR_TYPE('\n'))
             else:
